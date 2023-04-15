@@ -10,6 +10,12 @@
 {% endcomment %}
 
 <div itemscope itemtype="http://schema.org/Product">
+{% if product.metafields.loox.num_reviews %}
+	<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+		<meta itemprop="ratingValue" content="{{ product.metafields.loox.avg_rating }}"/>
+		<meta itemprop="reviewCount" content="{{ product.metafields.loox.num_reviews }}"/>
+	</div>
+{% endif %}
 
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
   <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
@@ -185,3 +191,6 @@
     {% endif %}
   });
 </script>
+
+
+	<div id="looxReviews" data-product-id="{{product.id}}" class="loox-reviews-default">{{ product.metafields.loox.reviews }}</div>
